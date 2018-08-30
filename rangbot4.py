@@ -8,6 +8,7 @@ import pickle
 
 client = discord.Client()
 memberlock = threading.Lock()
+end_thread = False
 
 
 class Member:
@@ -117,7 +118,7 @@ def set_rank(member):
 
 def collect_points(members):
 	lt = time.clock()
-	while not client.is_closed:
+	while end_thread == False:
 		
 		if (time.clock() - lt) >= 60:
 			print("collecting points")
@@ -200,3 +201,4 @@ collect_thread = threading.Thread(target=collect_points, args=(members_,))
 collect_thread.start()
 
 client.run("NDgzMzE3MzE1ODE1ODY2Mzc4.DmRsEA.JACqlxMg0kt4Oj0JyPNVRuaMNT0")
+end_thread = True
